@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verifique sua Conta</title>
     <link rel="stylesheet" href="styles/email_verification.css">
-    <!-- Script -->
 </head>
 <body>
 
@@ -15,13 +14,33 @@
 
     <div class="container">
         <h1>Verifique sua Conta</h1>
-        <p>Seja bem-vindo a Formalize.CA!<br>Antes de começarmos, confirme seu endereço de e-mail.</p>
-        <!-- Adicionar ação com backend da API-->
-        <form action="#" method="#">
-            <input type="email" placeholder="Insira seu e-mail" required>
-            <button type="submit">Confirmar</button>
+        <p>Seja bem-vindo à Formalize.CA!<br>Antes de começarmos, confirme seu endereço de e-mail.</p>
+        
+        <form id="otp-form">
+            <div class="field">
+                <div class="control">
+                    <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input type="text" id="otp-code" placeholder="Digite o código OTP" maxlength="6" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <button type="submit" id="otp-btn">Verificar Código</button>
+                </div>
+            </div>
+
+            <div class="field">
+                <button type="button" id="resend-otp-btn">Reenviar Código</button>
+            </div>
         </form>
     </div>
-
+    
+    <script src="scripts/register.js"></script>
 </body>
 </html>

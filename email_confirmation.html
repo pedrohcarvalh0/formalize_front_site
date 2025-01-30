@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmação de Email</title>
     <link rel="stylesheet" href="styles/email_confimation.css">
-    <!-- Script -->
 </head>
 <body>
    
@@ -18,19 +17,31 @@
         <h1 class="title">Confirmação de Email</h1>
         <p>Por favor, acesse seu e-mail e verifique o código enviado.</p>
 
-        <form action="confirmar_codigo.php" method="POST">
+        <form id="otp-form">
             <div class="field">
                 <div class="control">
-                    <input type="text" name="codigo" placeholder="Insira o código" maxlength="6" required>
+                    <input type="email" id="email" placeholder="Insira seu e-mail" required>
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <button type="submit">Confirmar</button>
+                    <input type="text" id="otp-code" placeholder="Insira o código OTP" maxlength="6" required>
                 </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <button type="submit" id="otp-btn">Confirmar</button>
+                </div>
+            </div>
+
+            <div class="field">
+                <button type="button" id="resend-otp-btn">Reenviar Código</button>
             </div>
         </form>
     </div>
+    
+    <script src="scripts/register.js"></script>
 </body>
 </html>
