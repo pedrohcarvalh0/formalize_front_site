@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     setTimeout(() => {
                         loadingPopup.style.visibility = "hidden";
                         loadingPopup.style.display = "none";
-                    }, 3000);
+                    }, 4000);
                 }
             } catch (error) {
                 console.error("Erro na requisição:", error);
