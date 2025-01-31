@@ -30,12 +30,6 @@ header img {
     margin-left: 80px;
 }
 
-.main-image {
-    max-width: 20%;
-    height: auto;
-    margin-bottom: 20px;
-}
-
 .confirmation-container {
     text-align: center;
     padding: 25px;
@@ -90,15 +84,32 @@ header img {
     background-color: #973382;
 }
 
+/* Adiciona espaçamento entre o parágrafo e o botão */
+.field p {
+    margin-top: 20px;
+    margin-bottom: 10px; /* Para dar um pouco mais de espaçamento entre o texto e o botão */
+}
+
+#resend-otp-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #c444a8; /* Cor roxa para combinar com o tema */
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#resend-otp-link:hover {
+    text-decoration: underline;
+    color: #973382;
+}
+
 /* Responsividade para telas menores que 768px */
 @media (max-width: 768px) {
     header img {
         height: 60px;
         margin-left: 30px;
-    }
-
-    .main-image {
-        max-width: 35%;
     }
 
     .confirmation-container {
@@ -122,10 +133,6 @@ header img {
     header img {
         height: 50px;
         margin-left: 20px;
-    }
-
-    .main-image {
-        max-width: 20%;
     }
 
     .confirmation-container {

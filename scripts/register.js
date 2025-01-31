@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const registerButton = document.getElementById("register-btn");
     const otpForm = document.getElementById("otp-form");
     const otpButton = document.getElementById("otp-btn");
-    const resendOtpButton = document.getElementById("resend-otp-btn");
+    const resendOtpLink = document.getElementById("resend-otp-link");
 
     // REGISTRO DE USUÁRIO
     if (registerButton) {
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const responseData = await response.json();
 
                 if (response.status === 201) {
-                    alert("Usuário cadastrado! Um código OTP foi enviado para seu email.");
+                    alert("Usuário cadastrado! Um código de confirmação foi enviado para seu email.");
                     window.location.href = "email_verification.html";
                 } else {
                     alert("Erro no cadastro: " + JSON.stringify(responseData));
@@ -91,8 +91,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // REENVIO DO CÓDIGO OTP
-    if (resendOtpButton) {
-        resendOtpButton.addEventListener("click", async function () {
+    if (resendOtpLink) {
+        resendOtpLink.addEventListener("click", async function (event) {
+            event.preventDefault(); // Evita que o link recarregue a página
+            
             const email = document.getElementById("email").value;
 
             if (!email) {
