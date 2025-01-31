@@ -3,41 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmação de Email</title>
+    <title>Verifique sua Conta</title>
     <link rel="stylesheet" href="styles/email_verification.css">
 </head>
 <body>
-   
+
     <header>
         <img src="assets/logoFormalize.png" alt="Logo">
     </header>
 
-    <div class="confirmation-container">
+    <div class="container">
+        <h1>Verifique sua Conta</h1>
+        <p>Seja bem-vindo à Formalize.CA!<br>Antes de começarmos, confirme seu endereço de e-mail.</p>
         
-        <h1 class="title">Estamos quase lá...</h1>
-        <p>Confira sua caixa de e-mail e insira o código de verificação junto com seu e-mail para confirmar sua conta.</p>
-
         <form id="otp-form">
             <div class="field">
                 <div class="control">
-                    <input type="email" id="email" placeholder="Insira seu e-mail" required>
+                    <input type="email" id="email" placeholder="Digite seu e-mail" required>
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <input type="text" id="otp-code" placeholder="Insira o código recebido" maxlength="6" required>
+                    <input type="text" id="otp-code" placeholder="Digite o código OTP" maxlength="6" required>
                 </div>
             </div>
 
             <div class="field">
                 <div class="control">
-                    <button type="submit" id="otp-btn">Confirmar</button>
+                    <button type="submit" id="otp-btn">Verificar Código</button>
                 </div>
             </div>
 
             <div class="field">
-                <p>Se não recebeu o código, informe seu e-mail e clique em <a href="#" id="resend-otp-link">Não Recebi o Código</a> para reenviar.</p>
+                <button type="button" id="resend-otp-btn">Reenviar Código</button>
             </div>
         </form>
     </div>

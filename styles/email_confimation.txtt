@@ -30,27 +30,32 @@ header img {
     margin-left: 80px;
 }
 
-.confirmation-container {
+.container {
     text-align: center;
     padding: 25px;
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212), -5px 5px 10px rgba(0, 0, 0, 0.212);
-    margin-top: 80px;
+    max-width: 490px;
+    width: 100%;
+    margin-top: 120px;
     border-top: 4px solid #c444a8;
 }
 
-.confirmation-container h1 {
+h1 {
     font-size: 2rem;
+    color: #333;
     margin-bottom: 10px;
 }
 
-.confirmation-container p {
+p {
+    font-size: 1rem;
     margin-bottom: 20px;
+    color: #555;
 }
 
-.confirmation-container input {
-    width: 50%;
+input[type="email"] {
+    width: 90%;
     margin: 0.6rem 0;
     padding: 0.8rem 1.2rem;
     border: none;
@@ -60,98 +65,73 @@ header img {
     text-align: center;
 }
 
-.confirmation-container input:hover {
+input[type="email"]:hover {
     background-color: #eeeeee75;
 }
 
-.confirmation-container input:focus-visible {
-    outline: 1px solid #c444a8;
+input[type="email"]:focus-visible {
+    outline: 1.5px solid #c444a8;
 }
 
-.confirmation-container button {
-    width: 50%;
+button {
+    width: 90%;
     border: none;
     background-color: #c444a8;
     padding: 0.62rem;
     border-radius: 5px;
     cursor: pointer;
     color: #fff;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
 }
 
-.confirmation-container button:hover {
+button:hover {
     background-color: #973382;
 }
 
-/* Adiciona espaçamento entre o parágrafo e o botão */
-.field p {
-    margin-top: 20px;
-    margin-bottom: 10px; /* Para dar um pouco mais de espaçamento entre o texto e o botão */
-}
-
-#resend-otp-link {
-    display: inline-block;
-    margin-top: 10px;
-    font-size: 1rem;
-    color: #c444a8; /* Cor roxa para combinar com o tema */
-    text-decoration: none;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-#resend-otp-link:hover {
-    text-decoration: underline;
-    color: #973382;
-}
-
-/* Responsividade para telas menores que 768px */
 @media (max-width: 768px) {
+    header img {
+        height: 60px;
+        margin-left: 20px;
+    }
+
+    .container {
+        padding: 20px;
+        margin-top: 80px;
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    input[type="email"], button {
+        width: 95%;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
     header img {
         height: 60px;
         margin-left: 30px;
     }
 
-    .confirmation-container {
-        margin-top: 60px;
-        padding: 20px;
-    }
-
-    .confirmation-container h1 {
-        font-size: 1.8rem;
-    }
-
-    .confirmation-container input,
-    .confirmation-container button {
-        width: 80%;
-        font-size: 1rem;
-    }
-}
-
-/* Responsividade para telas menores que 480px */
-@media (max-width: 480px) {
-    header img {
-        height: 50px;
-        margin-left: 20px;
-    }
-
-    .confirmation-container {
-        margin-top: 60px;
+    .container {
         padding: 15px;
-        max-width: 90%;
+        margin-top: 60px;
     }
 
-    .confirmation-container h1 {
-        font-size: 1.5rem;
+    h1 {
+        font-size: 1.4rem;
     }
 
-    .confirmation-container p {
-        font-size: 0.9rem;
-    }
-
-    .confirmation-container input,
-    .confirmation-container button {
-        width: 90%;
-        font-size: 0.9rem;
+    p {
+        font-size: 0.8rem;
     }
 }
+

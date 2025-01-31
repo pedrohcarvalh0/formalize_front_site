@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const otpButton = document.getElementById("otp-btn");
     const resendOtpLink = document.getElementById("resend-otp-link");
 
+    const loadingPopup = document.getElementById("loading-popup");
+
     // REGISTRO DE USUÁRIO
     if (registerButton) {
         registerButton.addEventListener("click", async function (event) {
@@ -31,6 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 password2: confirmPassword
             };
 
+            // Exibe o popup de carregamento antes da requisição
+            loadingPopup.style.visibility = "visible";
+            loadingPopup.style.display = "flex";
+
             try {
                 const response = await fetch("http://127.0.0.1:8000/api/v1/accounts/register/", {
                     method: "POST",
@@ -39,6 +45,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
                 const responseData = await response.json();
+
+                // Esconde o popup de carregamento após a resposta
+                loadingPopup.style.visibility = "hidden";
+                loadingPopup.style.display = "none";
 
                 if (response.status === 201) {
                     alert("Usuário cadastrado! Um código de confirmação foi enviado para seu email.");
@@ -49,6 +59,9 @@ document.addEventListener("DOMContentLoaded", function () {
             } catch (error) {
                 console.error("Erro na requisição:", error);
                 alert("Erro ao conectar-se ao servidor.");
+                // Esconde o popup em caso de erro
+                loadingPopup.style.visibility = "hidden";
+                loadingPopup.style.display = "none";
             }
         });
     }
