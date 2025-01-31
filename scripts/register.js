@@ -5,7 +5,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const otpButton = document.getElementById("otp-btn");
     const resendOtpLink = document.getElementById("resend-otp-link");
 
+    // POP OP da tela de registro
     const loadingPopup = document.getElementById("loading-popup");
+    const loadingText = document.getElementById("loading-text");
+    const spinner = document.getElementById("spinner");
+
+    // POP OP da tela de confirmação de conta
+    const statusPopup = document.getElementById("status-popup");
+    const statusText = document.getElementById("status-text");
 
     // REGISTRO DE USUÁRIO
     if (registerButton) {
@@ -34,6 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
             // Exibe o popup de carregamento antes da requisição
+            loadingText.textContent = "Registrando usuário...";
+            spinner.style.display = "block"; // Mostra o spinner
             loadingPopup.style.visibility = "visible";
             loadingPopup.style.display = "flex";
 
@@ -46,22 +55,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const responseData = await response.json();
 
-                // Esconde o popup de carregamento após a resposta
-                loadingPopup.style.visibility = "hidden";
-                loadingPopup.style.display = "none";
-
                 if (response.status === 201) {
-                    alert("Usuário cadastrado! Um código de confirmação foi enviado para seu email.");
-                    window.location.href = "email_verification.html";
+                    // Atualiza a mensagem no popup
+                    loadingText.textContent = "Usuário cadastrado! Um código de confirmação foi enviado para seu email.";
+                    spinner.style.display = "none"; // Esconde o spinner
+
+                    // Aguarda 3 segundos e redireciona
+                    setTimeout(() => {
+                        window.location.href = "email_verification.html";
+                    }, 3000);
                 } else {
-                    alert("Erro no cadastro: " + JSON.stringify(responseData));
+                    // Exibe erro no popup
+                    loadingText.textContent = "Erro no cadastro: " + JSON.stringify(responseData);
+                    spinner.style.display = "none"; // Esconde o spinner
+                    
+                    // Aguarda 3 segundos e fecha o popup
+                    setTimeout(() => {
+                        loadingPopup.style.visibility = "hidden";
+                        loadingPopup.style.display = "none";
+                    }, 3000);
                 }
             } catch (error) {
                 console.error("Erro na requisição:", error);
-                alert("Erro ao conectar-se ao servidor.");
-                // Esconde o popup em caso de erro
-                loadingPopup.style.visibility = "hidden";
-                loadingPopup.style.display = "none";
+                //alert("Erro ao conectar-se ao servidor.");
+                loadingText.textContent = "Erro ao conectar-se ao servidor.";
+                spinner.style.display = "none"; // Esconde o spinner
+
+                // Aguarda 3 segundos e fecha o popup
+                setTimeout(() => {
+                    loadingPopup.style.visibility = "hidden";
+                    loadingPopup.style.display = "none";
+                }, 4000);
             }
         });
     }
@@ -75,11 +99,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const email = document.getElementById("email").value;
 
             if (!email) {
-                alert("Por favor, insira seu e-mail.");
+                showStatusPopup("Por favor, insira seu e-mail.", true);
                 return;
             }
 
             const otpData = { email: email, otp: otpCode };
+
+            // Exibe popup de status enquanto verifica o código
+            showStatusPopup("Verificando código e email...", false);
 
             try {
                 const response = await fetch("http://127.0.0.1:8000/api/v1/accounts/verify/", {
@@ -91,14 +118,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 const responseData = await response.json();
 
                 if (response.status === 200) {
-                    alert("Conta verificada com sucesso! Redirecionando para o login.");
-                    window.location.href = "login.html";
+                    showStatusPopup("Conta verificada com sucesso! Redirecionando para o login.", false);
+                    
+                    // Aguarda 3 segundos e redireciona
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 4000);
                 } else {
-                    alert("Erro na verificação do OTP: " + (responseData.error || "Código inválido."));
+                    showStatusPopup("Erro na verificação do código: " + (responseData.error || "Código inválido."), true);
                 }
             } catch (error) {
                 console.error("Erro na requisição:", error);
-                alert("Erro ao conectar-se ao servidor.");
+                showStatusPopup("Erro ao conectar-se ao servidor.", true);
             }
         });
     }
@@ -111,11 +142,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const email = document.getElementById("email").value;
 
             if (!email) {
-                alert("Por favor, insira seu e-mail primeiro.");
+                //alert("Por favor, insira seu e-mail primeiro.");
+                showStatusPopup("Por favor, insira seu e-mail primeiro.", true);
                 return;
             }
 
             const resendData = { email: email };
+
+            // Exibe popup informando que o código está sendo reenviado
+            showStatusPopup("Enviando novo código...", false);
 
             try {
                 const response = await fetch("http://127.0.0.1:8000/api/v1/accounts/otp-resend/", {
@@ -127,14 +162,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 const responseData = await response.json();
 
                 if (response.status === 200) {
-                    alert("Novo código OTP enviado para o seu email.");
+                    showStatusPopup("Um novo código foi enviado para o seu email, cheque novamente.", false);
                 } else {
-                    alert("Erro ao reenviar OTP: " + (responseData.error || "Erro desconhecido."));
+                    showStatusPopup("Erro ao reenviar Código: " + (responseData.error || "Erro desconhecido."), true);
                 }
             } catch (error) {
                 console.error("Erro na requisição:", error);
-                alert("Erro ao conectar-se ao servidor.");
+                showStatusPopup("Erro ao conectar-se ao servidor.", true);
             }
         });
+    }
+
+     // Função para exibir o popup de status
+    function showStatusPopup(message, isError) {
+        statusText.textContent = message;
+        statusText.style.color = isError ? "red" : "green"; // Define a cor do texto conforme o status
+        statusPopup.style.visibility = "visible";
+        statusPopup.style.display = "flex";
+
+        // Se for erro, fecha automaticamente após 4 segundos
+        if (isError) {
+            setTimeout(() => {
+                statusPopup.style.visibility = "hidden";
+                statusPopup.style.display = "none";
+            }, 4000);
+        }
     }
 });
