@@ -5,29 +5,81 @@ document.addEventListener("DOMContentLoaded", function () {
     const otpButton = document.getElementById("otp-btn");
     const resendOtpLink = document.getElementById("resend-otp-link");
 
-    // POP OP da tela de registro
+    // POP UP da tela de registro
     const loadingPopup = document.getElementById("loading-popup");
     const loadingText = document.getElementById("loading-text");
     const spinner = document.getElementById("spinner");
 
-    // POP OP da tela de confirmação de conta
+    // POP UP da tela de confirmação de conta
     const statusPopup = document.getElementById("status-popup");
     const statusText = document.getElementById("status-text");
+
+    // Define os elementos de mensagem de erro
+    const firstNameError = document.getElementById("firstname-error");
+    const lastNameError = document.getElementById("lastname-error");
+    const emailError = document.getElementById("email-error");
+    const cpfError = document.getElementById("cpf-error");
+    const passwordError = document.getElementById("password-error");
+    const confirmPasswordError = document.getElementById("confirmpassword-error");
 
     // REGISTRO DE USUÁRIO
     if (registerButton) {
         registerButton.addEventListener("click", async function (event) {
             event.preventDefault();
 
-            const firstName = document.getElementById("firstname").value;
-            const lastName = document.getElementById("lastname").value;
-            const email = document.getElementById("email").value;
-            const cpf = document.getElementById("cpf").value;
+            // Recupera os valores dos inputs (usando trim para evitar espaços em branco)
+            const firstName = document.getElementById("firstname").value.trim();
+            const lastName = document.getElementById("lastname").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const cpf = document.getElementById("cpf").value.trim();
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("Confirmpassword").value;
 
-            if (password !== confirmPassword) {
-                alert("As senhas não conferem!");
+            // Oculta as mensagens de erro anteriores
+            firstNameError.style.display = "none";
+            lastNameError.style.display = "none";
+            emailError.style.display = "none";
+            cpfError.style.display = "none";
+            passwordError.style.display = "none";
+            confirmPasswordError.style.display = "none";
+
+            let hasErrors = false;
+
+            
+            // Valida cada campo
+            if (!firstName) {
+                firstNameError.style.display = "block";
+                hasErrors = true;
+            }
+            if (!lastName) {
+                lastNameError.style.display = "block";
+                hasErrors = true;
+            }
+            if (!email) {
+                emailError.style.display = "block";
+                hasErrors = true;
+            }
+            if (!cpf) {
+                cpfError.style.display = "block";
+                hasErrors = true;
+            }
+            if (!password) {
+                passwordError.style.display = "block";
+                hasErrors = true;
+            }
+            if (!confirmPassword) {
+                confirmPasswordError.style.display = "block";
+                hasErrors = true;
+            }
+            if (password && confirmPassword && password !== confirmPassword) {
+                // Se as senhas foram preenchidas, mas não conferem
+                confirmPasswordError.textContent = "As senhas não conferem!";
+                confirmPasswordError.style.display = "block";
+                hasErrors = true;
+            }
+
+            // Se houver algum erro, interrompe a execução
+            if (hasErrors) {
                 return;
             }
 

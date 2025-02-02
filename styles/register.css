@@ -142,9 +142,9 @@ body {
     background-color: #c444a8;
 }
 
-/* Estilização do popup */
+
 #loading-popup {
-    display: none; /* Garante que o popup inicie oculto */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -155,7 +155,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    visibility: hidden; /* Garante que o elemento não seja visível */
+    visibility: hidden;
 }
 
 .loading-content {
@@ -183,6 +183,30 @@ body {
     to {
         transform: rotate(360deg);
     }
+}
+
+.error-message {
+    display: none;
+    color: red;
+    font-size: 0.75em;
+    margin-top: 0.5em;
+    display: none; /* Inicialmente oculto */
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.input-box input:invalid + .error-message {
+    display: block; /* Mostra a mensagem de erro quando o campo é inválido */
 }
 
 @media screen and (max-width: 1330px) {
