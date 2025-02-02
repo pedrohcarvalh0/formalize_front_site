@@ -10,7 +10,6 @@ function toggleSidebar() {
 
 document.addEventListener("DOMContentLoaded", function () {
     // ------------- Lógica de Login -------------
-    // Seleciona o botão de login presente na página login.html
     const continueButton = document.getElementById("continue-button");
 
     if (continueButton) {
@@ -21,9 +20,23 @@ document.addEventListener("DOMContentLoaded", function () {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            // Validação simples para garantir que os campos não estejam vazios
-            if (!email || !password) {
-                alert("Por favor, preencha os campos de e-mail e senha.");
+            const emailError = document.getElementById("email-error");
+            const passwordError = document.getElementById("password-error");
+
+            // Limpa mensagens de erro anteriores
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+
+            // Validação dos campos
+            if (!email && !password) {
+                emailError.style.display = 'block';
+                passwordError.style.display = 'block';
+                return;
+            } else if (!email) {
+                emailError.style.display = 'block';
+                return;
+            } else if (!password) {
+                passwordError.style.display = 'block';
                 return;
             }
 
@@ -66,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-// ------------- Lógica de Logout -------------
+    // ------------- Lógica de Logout -------------
     const logoutButton = document.getElementById("logout-button");
 
     if (logoutButton) {
