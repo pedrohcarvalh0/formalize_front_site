@@ -17,6 +17,7 @@ body {
 }
 
 header {
+    position: relative;
     width: 100%;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -36,6 +37,56 @@ header img {
     font-weight: 600;
     color: #6a2a5c;
     margin-left: 20px; /* Espaço entre a logo e o texto */
+}
+
+/* Estiliza o link do ícone de ajuda */
+.help-icon {
+    position: absolute;
+    right: 30px; /* Distância da borda direita */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    text-decoration: none; /* Remove sublinhado, se houver */
+}
+
+.help-icon img {
+    height: 30px;
+    width: auto;
+}
+
+/* Estilo do tooltip (mensagem que aparece ao passar o mouse) */
+.help-icon .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    width: 150px; /* Largura do tooltip */
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%;           /* Posiciona o tooltip abaixo do ícone */
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+}
+
+.help-icon .tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #555 transparent; /* A seta aponta para cima */
+}
+
+.help-icon:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
 }
 
 .confirmation-container {
