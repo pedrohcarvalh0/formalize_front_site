@@ -22,12 +22,20 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px 0;
     display: flex;
-    justify-content: flex-start;
+    align-items: center;
 }
 
 header img {
     height: 70px;
     margin-left: 80px;
+}
+
+.header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #6a2a5c;
+    margin-left: 20px; /* Espaço entre a logo e o texto */
 }
 
 .confirmation-container {
