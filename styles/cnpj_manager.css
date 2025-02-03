@@ -9,9 +9,22 @@ body {
 header {
   background: #6a2a5c;
   color: #fff;
-  text-align: center;
   padding: 1rem;
   position: relative;
+  display: flex;
+  align-items: center;
+}
+
+header img {
+  height: 60px; /* Ajuste a altura conforme necessário */
+  margin-left: 20px; /* Espaço à esquerda da logo */
+}
+
+header h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-left: 20px; /* Espaço entre a logo e o título */
 }
 
 footer {
