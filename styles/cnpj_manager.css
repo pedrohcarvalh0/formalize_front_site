@@ -16,15 +16,15 @@ header {
 }
 
 header img {
-  height: 60px; /* Ajuste a altura conforme necessário */
-  margin-left: 20px; /* Espaço à esquerda da logo */
+  height: 60px;
+  margin-left: 20px;
 }
 
 header h1 {
   font-family: 'Inter', sans-serif;
   font-size: 24px;
   font-weight: 600;
-  margin-left: 20px; /* Espaço entre a logo e o título */
+  margin-left: 20px;
 }
 
 footer {
@@ -69,7 +69,7 @@ footer {
 }
 
 .sidebar ul li {
-  padding: 10px 0; /* Espaçamento vertical entre os itens */
+  padding: 3px 0; /* Espaçamento vertical entre os itens */
   text-align: left; /* Alinhar texto à esquerda */
   border-bottom: 1px solid #e0e0e0; /* Divisão entre os itens */
 }
@@ -83,12 +83,12 @@ footer {
   text-decoration: none;
   font-size: 1.1rem;
   display: block;
-  padding: 10px 15px; /* Espaçamento interno para os links */
+  padding: 10px 15px;
   transition: background 0.3s ease;
 }
 
 .sidebar ul li a:hover {
-  background: #f0f0f0; /* Efeito hover */
+  background: #f0f0f0;
   border-radius: 5px;
 }
 
