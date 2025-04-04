@@ -3,259 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #aa2f8f80;
-        }
-
-        .container {
-            width: 80%;
-            height: 80vh;
-            display: flex;
-            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
-        }
-
-        .form-image {
-            width: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #ffffff;
-            padding: 1rem;
-        }
-
-        .form-image img {
-            width: 28rem;
-        }
-
-        .form {
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #fff;
-            padding: 3rem;
-        }
-
-        .form-header {
-            margin-bottom: 3rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .register-button {
-            display: flex;
-            align-items: center;
-        }
-
-        .register-button button {
-            border: none;
-            background-color: #973382;
-            padding: 0.4rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .register-button button:hover {
-            background-color: #c444a8;
-        }
-
-        .register-button button a {
-            text-decoration: none;
-            font-weight: 500;
-            color: #fff;
-        }
-
-        .form-header h1::after {
-            content: '';
-            display: block;
-            width: 4rem;
-            height: 0.3rem;
-            background-color: #973382;
-            margin: 0 auto;
-            position: absolute;
-            border-radius: 10px;
-        }
-
-        .input-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 1rem 0;
-        }
-
-        .input-box {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1.1rem;
-        }
-
-        .input-box input {
-            margin: 0.6rem 0;
-            padding: 0.8rem 1.2rem;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 1px 1px 6px #0000001c;
-            font-size: 0.8rem;
-        }
-
-        .input-box input:hover {
-            background-color: #eeeeee75;
-        }
-
-        .input-box input:focus-visible {
-            outline: 1px solid #c444a8;
-        }
-
-        .input-box label, h6 {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #000000c0;
-        }
-
-        .input-box input::placeholder {
-            color: #000000be;
-        }
-
-        .forgot-options {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            margin-bottom: 1.3rem;
-        }
-
-        .forgot-password {
-            text-decoration: none;
-            color: #973382;
-            cursor: pointer;
-        }
-
-        .forgot-password:hover {
-            color: #c444a8;
-            text-decoration: underline;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-        }
-
-        .remember-me input {
-            margin-right: 5px;
-        }
-
-        .continue-button button {
-            width: 100%;
-            border: none;
-            background-color: #973382;
-            padding: 0.62rem;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .continue-button button:hover {
-            background-color: #c444a8;
-        }
-
-        .continue-button button {
-            text-decoration: none;
-            font-size: 0.93rem;
-            font-weight: 500;
-            color: #fff;
-        }
-
-        @media screen and (max-width: 1330px) {
-            .form-image {
-                display: none;
-            }
-            .container {
-                width: 50%;
-            }
-            .form {
-                width: 100%;
-            }
-        }
-
-        @media screen and (max-width: 1064px) {
-            .container {
-                width: 90%;
-                height: auto;
-            }
-            .input-group {
-                flex-direction: column;
-                z-index: 5;
-                padding-right: 5rem;
-                max-height: 10rem;
-                overflow-y: scroll;
-                flex-wrap: nowrap;
-            }
-        }
-    </style>
+    <title>Login | Formalize.CA</title>
+    <link rel="stylesheet" href="styles/auth-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/logoFormalize.png">
 </head>
-
 <body>
-    <div class="container">
-        <div class="form-image">
-            <img src='assets/LogoFornalizeRefeitoCut.png' alt="">
-        </div>
-        <div class="form">
-          
-            <form method="post">
-                <div class="form-header">
-                    <div class="title">
-                        <h1>Login</h1>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img src="assets/logoFormalize.png" alt="Logo Formalize" class="auth-logo">
+                <h1>Bem-vindo de volta</h1>
+                <p>Entre com suas credenciais para acessar sua conta</p>
+            </div>
+
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input id="email" type="email" name="email" placeholder="Seu e-mail" required>
                     </div>
-                    <div class="register-button">
-                        <button><a href="register.html">Cadastre-se</a></button>
-                    </div>
+                    <span class="error-message" id="email-error">Por favor, preencha o campo de e-mail.</span>
                 </div>
 
-                <div class="input-group">
-
-                    <div class="input-box">
-                        <label for="email">E-mail</label>
-                        <input id="email" type="email" name="email" placeholder="Digite seu email" required>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input id="password" type="password" name="password" placeholder="Sua senha" required>
+                        <button type="button" class="toggle-password" tabindex="-1">
+                            <i class="fas fa-eye"></i>
+                        </button>
                     </div>
-
-                    <div class="input-box">
-                        <label for="password">Senha</label>
-                        <input id="password" type="password" name="password" placeholder="Digite sua senha" required>
-                    </div>
+                    <span class="error-message" id="password-error">Por favor, preencha o campo de senha.</span>
                 </div>
 
-                <div class="forgot-options">
+                <div class="form-options">
                     <div class="remember-me">
                         <input type="checkbox" id="remember" name="remember">
                         <label for="remember">Mantenha-me conectado</label>
                     </div>
-                    <!-- Substituir # pela ação de validação do script do backend-->
-                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                    <a href="password_reset.html" class="forgot-link">Esqueceu a senha?</a>
                 </div>
 
-                <div class="continue-button">
-                    <button type="button" id="continue-button">Continuar</button>
-                </div>
-                
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
             </form>
+
+            <div class="auth-footer">
+                <p>Não tem uma conta?</p>
+                <a href="register.html" class="btn-secondary">
+                    <i class="fas fa-user-plus"></i> Cadastre-se
+                </a>
+            </div>
         </div>
     </div>
-</body>
 
+    <div class="auth-background">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <script>
+        // Toggle password visibility
+        document.querySelectorAll('.toggle-password').forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
+                const icon = this.querySelector('i');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        });
+
+        // Form validation
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            let isValid = true;
+            
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(msg => {
+                msg.style.display = 'none';
+            });
+            
+            if (!email.value.trim()) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!password.value.trim()) {
+                document.getElementById('password-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Submit the form
+                this.submit();
+            }
+        });
+    </script>
+</body>
 </html>
