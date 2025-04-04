@@ -3,54 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmação de Email</title>
-    <link rel="stylesheet" href="styles/email_verification.css">
+    <title>Verificação de Email | Formalize.CA</title>
+    <link rel="stylesheet" href="styles/auth-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="assets/logoFormalize.png">
 </head>
 <body>
-    <header>
-        <img src="assets/logoFormalize.png" alt="Logo">
-        <span class="header-title">Formalize.CA</span>
-        <a href="mailto:pedrocarvalho.comp@gmail.com" target="_blank" class="help-icon">
-            <img src="assets/duvidaMt.png" alt="Ajuda">
-            <span class="tooltip">Precisa de Ajuda? Fale Conosco!</span>
-        </a>
+    <header class="auth-header">
+        <div class="header-container">
+            <a href="index.html" class="logo-link">
+                <img src="assets/logoFormalize.png" alt="Logo Formalize">
+                <span class="header-title">Formalize.CA</span>
+            </a>
+            <a href="mailto:suporte@formalize.ca" class="help-link">
+                <i class="fas fa-question-circle"></i>
+                <span class="tooltip">Precisa de Ajuda? Fale Conosco!</span>
+            </a>
+        </div>
     </header>
-    <div class="confirmation-container">
-        <h1 class="title">Estamos quase lá...</h1>
-        <p>Confira sua caixa de e-mail e insira o código de verificação junto com seu e-mail para confirmar sua conta.</p>
 
-        <form id="otp-form">
-            <div class="field">
-                <div class="control">
-                    <input type="email" id="email" placeholder="Insira seu e-mail" required>
+    <div class="auth-container">
+        <div class="auth-card small-card">
+            <div class="auth-header">
+                <i class="fas fa-envelope-open-text auth-icon"></i>
+                <h1>Verificação de Email</h1>
+                <p>Insira o código de verificação enviado para seu email</p>
+            </div>
+
+            <form id="otp-form" class="auth-form">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Seu e-mail cadastrado" required>
+                    </div>
+                    <span class="error-message" id="email-error">Por favor, informe um e-mail válido.</span>
                 </div>
-            </div>
 
-            <div class="field">
-                <div class="control">
-                    <input type="text" id="otp-code" placeholder="Insira o código recebido" maxlength="6" required>
+                <div class="form-group">
+                    <label for="otp-code">Código de Verificação</label>
+                    <div class="otp-container">
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                        <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                    </div>
+                    <input type="hidden" id="otp-code" required>
+                    <span class="error-message" id="otp-error">Por favor, insira o código completo.</span>
                 </div>
-            </div>
 
-            <div class="field">
-                <div class="control">
-                    <button type="submit" id="otp-btn">Confirmar</button>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-check-circle"></i> Verificar
+                </button>
+
+                <div class="resend-container">
+                    <p>Não recebeu o código?</p>
+                    <button type="button" id="resend-otp-btn" class="btn-text">
+                        <i class="fas fa-redo"></i> Reenviar código
+                    </button>
                 </div>
-            </div>
-
-            <div class="field">
-                <p>Se não recebeu o código, informe seu e-mail e clique em <a href="#" id="resend-otp-link">Não Recebi o Código</a> para reenviar.</p>
-            </div>
-        </form>
-
-        <!-- Popup de status -->
-        <div id="status-popup">
-            <div class="status-content">
-                <p id="status-text">Verificando código...</p>
-            </div>
+            </form>
         </div>
     </div>
-    <script src="scripts/register.js"></script>
+
+    <div class="auth-background">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p id="loading-text">Verificando código...</p>
+    </div>
+
+    <script>
+        // OTP input handling
+        const otpInputs = document.querySelectorAll('.otp-input');
+        const otpHiddenInput = document.getElementById('otp-code');
+        
+        otpInputs.forEach((input, index) => {
+            // Auto-focus next input
+            input.addEventListener('input', function() {
+                if (this.value.length === 1) {
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                    
+                    // Update hidden input with all values
+                    updateOtpValue();
+                }
+            });
+            
+            // Handle backspace
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && !this.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+            
+            // Handle paste
+            input.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const pasteData = e.clipboardData.getData('text').trim();
+                
+                if (/^\d+$/.test(pasteData) && pasteData.length <= otpInputs.length) {
+                    for (let i = 0; i < pasteData.length; i++) {
+                        if (index + i < otpInputs.length) {
+                            otpInputs[index + i].value = pasteData[i];
+                        }
+                    }
+                    
+                    // Focus on the next empty input or the last one
+                    const nextIndex = Math.min(index + pasteData.length, otpInputs.length - 1);
+                    otpInputs[nextIndex].focus();
+                    
+                    // Update hidden input
+                    updateOtpValue();
+                }
+            });
+        });
+        
+        function updateOtpValue() {
+            let otp = '';
+            otpInputs.forEach(input => {
+                otp += input.value;
+            });
+            otpHiddenInput.value = otp;
+        }
+
+        // Form validation
+        document.getElementById('otp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email');
+            let isValid = true;
+            
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(msg => {
+                msg.style.display = 'none';
+            });
+            
+            // Validate email
+            if (!email.value.trim() || !email.value.includes('@')) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate OTP
+            const otp = otpHiddenInput.value;
+            if (otp.length !== 6) {
+                document.getElementById('otp-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Show loading overlay
+                document.getElementById('loading-overlay').style.display = 'flex';
+                
+                // Simulate verification (in a real app, you'd handle this with AJAX)
+                setTimeout(() => {
+                    document.getElementById('loading-text').textContent = 'Email verificado com sucesso!';
+                    document.getElementById('loading-spinner').classList.add('success');
+                    
+                    // Redirect after a delay
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                }, 2000);
+            }
+        });
+        
+        // Resend OTP
+        document.getElementById('resend-otp-btn').addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            
+            if (!email.trim() || !email.includes('@')) {
+                document.getElementById('email-error').style.display = 'block';
+                return;
+            }
+            
+            // Show loading overlay
+            document.getElementById('loading-overlay').style.display = 'flex';
+            document.getElementById('loading-text').textContent = 'Reenviando código...';
+            
+            // Simulate resending (in a real app, you'd handle this with AJAX)
+            setTimeout(() => {
+                document.getElementById('loading-text').textContent = 'Código reenviado com sucesso!';
+                document.getElementById('loading-spinner').classList.add('success');
+                
+                // Hide overlay after a delay
+                setTimeout(() => {
+                    document.getElementById('loading-overlay').style.display = 'none';
+                    document.getElementById('loading-spinner').classList.remove('success');
+                }, 2000);
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
